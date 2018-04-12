@@ -19,6 +19,10 @@ urlpatterns = [
         r"^users/",
         include("lisztfeverapp.users.urls", namespace="users"),
     ),
+    url(
+        r"^plans/",
+        include("lisztfeverapp.plans.urls", namespace="plans"),
+    ),
     url(r"^accounts/", include("allauth.urls")),
     # Your stuff: custom urls includes go here
 ] + static(
