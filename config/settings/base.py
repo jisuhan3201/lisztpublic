@@ -71,8 +71,7 @@ THIRD_PARTY_APPS = [
 LOCAL_APPS = [
     'lisztfeverapp.users.apps.UsersConfig',
     'lisztfeverapp.artists.apps.ArtistsConfig',
-    'lisztfeverapp.events.apps.EventsConfig',
-    'lisztfeverapp.plans.apps.PlansConfig'
+    'lisztfeverapp.events.apps.EventsConfig'
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS

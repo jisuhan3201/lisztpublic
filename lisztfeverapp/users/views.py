@@ -1,9 +1,11 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse
-from django.views.generic import DetailView, ListView, RedirectView, UpdateView
+from django.contrib.auth.mixins import LoginRequiredMixin #cookiecutter default
+from django.urls import reverse #cookiecutter default
+from django.views.generic import DetailView, ListView, RedirectView, UpdateView #cookiecutter default
+from rest_framework.views import APIView
+from rest_framework.response import Response
 
-from .models import User
-
+from .models import User #cookiecutter default
+from . import models, serializers
 
 class UserDetailView(LoginRequiredMixin, DetailView):
     model = User
@@ -41,3 +43,31 @@ class UserListView(LoginRequiredMixin, ListView):
     # These next two lines tell the view to index lookups by username
     slug_field = "username"
     slug_url_kwarg = "username"
+
+
+class ListAllUsers(APIView):
+
+    def get(self, request, format=None):
+
+        all_users = models.User.objects.all()
+        serializer = serializers.UserSerializer(all_users, many=True)
+
+        return Response(data=serializer.data)
+
+class ListAllPlans(APIView):
+
+    def get(self, request, format=None):
+
+        all_plans = models.Plan.objects.all()
+        serializer = serializers.PlanSerializer(all_plans, many=True)
+
+        return Response(data=serializer.data)
+
+class ListAllTrackArtists(APIView):
+
+    def get(self, request, format=None):
+
+        all_track_artists = models.TrackArtist.objects.all()
+        serializer = serializers.TrackArtistSerializer(all_track_artists, many=True)
+
+        return Response(data=serializer.data)

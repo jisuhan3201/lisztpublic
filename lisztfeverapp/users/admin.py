@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as AuthUserAdmin
 from django.contrib.auth.forms import UserChangeForm, UserCreationForm
 from .models import User
-# from . import models
+from . import models
 
 class MyUserChangeForm(UserChangeForm):
 
@@ -38,14 +38,24 @@ class MyUserAdmin(AuthUserAdmin):
     list_display = ("username", "name", "is_superuser")
     search_fields = ["name"]
 
-# @admin.register(models.UserArtists)
-# class UserArtistAdmin(admin.ModelAdmin):
-#
-#     list_display = (
-#         "user_id",
-#         "artist_id",
-#         "artist_name",
-#         "create_at",
-#         "updated_at",
-#
-#     )
+@admin.register(models.Plan)
+class PlanAdmin(admin.ModelAdmin):
+
+    list_display = (
+        "user_id",
+        "event_id",
+        "status",
+        "create_at",
+        "updated_at",
+    )
+
+@admin.register(models.TrackArtist)
+class PlanAdmin(admin.ModelAdmin):
+
+    list_display = (
+        "user_id",
+        "artist_id",
+        "status",
+        "create_at",
+        "updated_at",
+    )

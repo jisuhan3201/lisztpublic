@@ -1,8 +1,8 @@
 from rest_framework import serializers
 from . import models
 
-class PlanSerializer(serializers.ModelSerializer):
+class ArtistSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = models.Plan
+        model = models.Artists
         fields = '__all__'
