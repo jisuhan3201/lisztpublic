@@ -1,6 +1,34 @@
 from django.db import models
+from lisztfeverapp.events import models as event_models
 
 # Create your models here.
+class Artists(models.Model):
+    artistid = models.CharField(db_column='artistId', primary_key=True, max_length=255)  # Field name made lowercase.
+    artistname = models.CharField(db_column='artistName', max_length=255, blank=True, null=True)  # Field name made lowercase.
+    attractionid = models.CharField(db_column='attractionId', max_length=255, blank=True, null=True)  # Field name made lowercase.
+    popularity = models.IntegerField(blank=True, null=True)
+    followers = models.IntegerField(blank=True, null=True)
+    externalurl = models.CharField(db_column='externalUrl', max_length=1024, blank=True, null=True)  # Field name made lowercase.
+    updatedat = models.DateTimeField(db_column='updatedAt', blank=True, null=True)  # Field name made lowercase.
+    imageurl = models.CharField(db_column='imageUrl', max_length=255, blank=True, null=True)  # Field name made lowercase.
+    artist_events = models.ManyToManyField(event_models.Events, through='ArtistEvents')
+
+    class Meta:
+        db_table = 'artists'
+
+class TimeStampedModel(models.Model):
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        abstract = True
+
+class ArtistEvents(TimeStampedModel):
+
+    artist = models.ForeignKey(Artists, db_column='artistId', on_delete=models.CASCADE)
+    event = models.ForeignKey(event_models.Events, db_column='eventId', on_delete=models.CASCADE)
+
 class AlbumTracks(models.Model):
     albumid = models.CharField(db_column='albumId', primary_key=True, max_length=255)  # Field name made lowercase.
     trackid = models.CharField(db_column='trackId', max_length=255)  # Field name made lowercase.
@@ -59,21 +87,6 @@ class ArtistGenres(models.Model):
         managed = False
         db_table = 'artist_genres'
         unique_together = (('artistid', 'genre'),)
-
-
-class Artists(models.Model):
-    artistid = models.CharField(db_column='artistId', primary_key=True, max_length=255)  # Field name made lowercase.
-    artistname = models.CharField(db_column='artistName', max_length=255, blank=True, null=True)  # Field name made lowercase.
-    attractionid = models.CharField(db_column='attractionId', max_length=255, blank=True, null=True)  # Field name made lowercase.
-    popularity = models.IntegerField(blank=True, null=True)
-    followers = models.IntegerField(blank=True, null=True)
-    externalurl = models.CharField(db_column='externalUrl', max_length=1024, blank=True, null=True)  # Field name made lowercase.
-    updatedat = models.DateTimeField(db_column='updatedAt', blank=True, null=True)  # Field name made lowercase.
-    imageurl = models.CharField(db_column='imageUrl', max_length=255, blank=True, null=True)  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'artists'
 
 
 class RelatedArtists(models.Model):

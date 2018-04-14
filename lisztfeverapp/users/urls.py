@@ -1,10 +1,11 @@
 from django.conf.urls import url
-
+from django.urls import include, path  #django 2.0 version url dispatcher
 from . import views
 
 app_name = "users"
 urlpatterns = [
-    url(regex = r"^all/$", view = views.ListAllUsers.as_view(), name = 'all_users'),
+    path("", view=views.UserMain.as_view(), name='user'),
+    path("all/", view = views.ListAllUsers.as_view(), name = 'all_users'),
     url(regex = r"^plans/$", view = views.ListAllPlans.as_view(), name = 'all_plans'),
     url(regex = r"^track_artists/$", view = views.ListAllTrackArtists.as_view(), name = 'all_track_artists'),
     url(regex=r"^$", view=views.UserListView.as_view(), name="list"),

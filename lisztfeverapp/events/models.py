@@ -1,4 +1,5 @@
 from django.db import models
+from lisztfeverapp.artists import models as artist_models
 
 
 # Create your models here.
@@ -19,8 +20,8 @@ class Events(models.Model):
     updatedat = models.DateTimeField(db_column='updatedAt', blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
-        managed = False
         db_table = 'events'
+
 
 class EventArtists(models.Model):
     eventid = models.CharField(db_column='eventId', primary_key=True, max_length=255)  # Field name made lowercase.

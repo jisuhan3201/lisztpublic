@@ -4,21 +4,19 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.views.generic import TemplateView
 from django.views import defaults as default_views
+from django.urls import include, path  #django 2.0 version url dispatcher
 
 urlpatterns = [
-    url(r"^$", TemplateView.as_view(template_name="pages/home.html"), name="home"),
+    # url(r"^$", TemplateView.as_view(template_name="pages/home.html"), name="home"),
     url(
         r"^about/$",
         TemplateView.as_view(template_name="pages/about.html"),
         name="about",
     ),
     # Django Admin, use {% url 'admin:index' %}
-    url(settings.ADMIN_URL, admin.site.urls),
+    path(settings.ADMIN_URL, admin.site.urls),
     # User management
-    url(
-        r"^users/",
-        include("lisztfeverapp.users.urls", namespace="users"),
-    ),
+    path('user/', include("lisztfeverapp.users.urls")),
     url(r"^accounts/", include("allauth.urls")),
     # Your stuff: custom urls includes go here
 ] + static(

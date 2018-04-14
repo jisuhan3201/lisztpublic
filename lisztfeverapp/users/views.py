@@ -45,6 +45,16 @@ class UserListView(LoginRequiredMixin, ListView):
     slug_url_kwarg = "username"
 
 
+class UserMain(APIView):
+
+    def get(self, request, format=None): #format=None is json format
+
+        user_id = request.user.id
+        user = models.User.objects.filter(id=user_id)
+        serializer = serializers.UserSerializer(user, many=True)
+
+        return Response(data=serializer.data)
+
 class ListAllUsers(APIView):
 
     def get(self, request, format=None):

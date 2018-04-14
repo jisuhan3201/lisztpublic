@@ -34,7 +34,7 @@ class MyUserCreationForm(UserCreationForm):
 class MyUserAdmin(AuthUserAdmin):
     form = MyUserChangeForm
     add_form = MyUserCreationForm
-    fieldsets = (("User Profile", {"fields": ("name",)}),) + AuthUserAdmin.fieldsets
+    fieldsets = (("User Profile", {"fields": ("name", )}),) + AuthUserAdmin.fieldsets
     list_display = ("username", "name", "is_superuser")
     search_fields = ["name"]
 
@@ -45,17 +45,17 @@ class PlanAdmin(admin.ModelAdmin):
         "user_id",
         "event_id",
         "status",
-        "create_at",
+        "created_at",
         "updated_at",
     )
 
 @admin.register(models.TrackArtist)
-class PlanAdmin(admin.ModelAdmin):
+class TrackArtistAdmin(admin.ModelAdmin):
 
     list_display = (
         "user_id",
         "artist_id",
         "status",
-        "create_at",
+        "created_at",
         "updated_at",
     )
