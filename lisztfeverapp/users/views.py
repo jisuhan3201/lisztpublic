@@ -6,6 +6,7 @@ from rest_framework.response import Response
 
 from .models import User #cookiecutter default
 from . import models, serializers
+from lisztfeverapp.events import serializers as event_serializers
 
 class UserDetailView(LoginRequiredMixin, DetailView):
     model = User
@@ -44,6 +45,7 @@ class UserListView(LoginRequiredMixin, ListView):
     slug_field = "username"
     slug_url_kwarg = "username"
 
+################################################################################
 
 class UserMain(APIView):
 
@@ -64,6 +66,25 @@ class ListAllUsers(APIView):
 
         return Response(data=serializer.data)
 
+class UserEvents(APIView):
+
+    def get(self, request, format=None):
+
+        user = request.user
+        user_follow_artists = user.user_follow_artists.all()
+
+        user_events = []
+        for artist in user_follow_artists:
+
+            events = artist.artist.artist_events.all()
+            for event in events:
+                if event != False:
+                    user_events.append(event)
+
+        serializer = event_serializers.EventSerializer(user_events, many=True)
+
+        return Response(data=serializer.data)
+
 class ListAllPlans(APIView):
 
     def get(self, request, format=None):
@@ -73,11 +94,11 @@ class ListAllPlans(APIView):
 
         return Response(data=serializer.data)
 
-class ListAllTrackArtists(APIView):
+class ListAllFollowArtists(APIView):
 
     def get(self, request, format=None):
 
-        all_track_artists = models.TrackArtist.objects.all()
-        serializer = serializers.TrackArtistSerializer(all_track_artists, many=True)
+        all_follow_artists = models.FollowArtist.objects.all()
+        serializer = serializers.FollowArtistSerializer(all_follow_artists, many=True)
 
         return Response(data=serializer.data)

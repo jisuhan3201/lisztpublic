@@ -11,18 +11,18 @@ class PlanSerializer(serializers.ModelSerializer):
         model = models.Plan
         fields = '__all__'
 
-class TrackArtistSerializer(serializers.ModelSerializer):
+class FollowArtistSerializer(serializers.ModelSerializer):
 
     artist = artist_serializers.ArtistSerializer()
 
     class Meta:
-        model = models.TrackArtist
+        model = models.FollowArtist
         fields = '__all__'
 
 class UserSerializer(serializers.ModelSerializer):
 
     user_plans = PlanSerializer(many=True)
-    user_track_artists = TrackArtistSerializer(many=True)
+    user_follow_artists = FollowArtistSerializer(many=True)
 
     class Meta:
         model = models.User
@@ -34,5 +34,5 @@ class UserSerializer(serializers.ModelSerializer):
             'name',
             'email',
             'user_plans',
-            'user_track_artists'
+            'user_follow_artists'
         )

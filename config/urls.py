@@ -17,6 +17,7 @@ urlpatterns = [
     path(settings.ADMIN_URL, admin.site.urls),
     # User management
     path('user/', include("lisztfeverapp.users.urls")),
+    path('artist/', include("lisztfeverapp.artists.urls")),
     url(r"^accounts/", include("allauth.urls")),
     # Your stuff: custom urls includes go here
 ] + static(

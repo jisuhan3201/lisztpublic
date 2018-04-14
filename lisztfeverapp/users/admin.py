@@ -49,13 +49,15 @@ class PlanAdmin(admin.ModelAdmin):
         "updated_at",
     )
 
-@admin.register(models.TrackArtist)
-class TrackArtistAdmin(admin.ModelAdmin):
+@admin.register(models.FollowArtist)
+class FollowArtistAdmin(admin.ModelAdmin):
 
     list_display = (
         "user_id",
         "artist_id",
-        "status",
+        "source",
+        "classification",
+        "follow",
         "created_at",
         "updated_at",
     )

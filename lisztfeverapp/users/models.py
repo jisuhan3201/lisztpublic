@@ -12,7 +12,7 @@ class User(AbstractUser):
     # around the globe.
     name = models.CharField(_("Name of User"), blank=True, max_length=255)
     user_events = models.ManyToManyField(event_models.Events, through='Plan', related_name="user_events")
-    track_artists = models.ManyToManyField(artist_models.Artists, through='TrackArtist', related_name="track_artists")
+    follow_artists = models.ManyToManyField(artist_models.Artists, through='followArtist', related_name="follow_artists")
 
     def __str__(self):
         return self.username
@@ -38,11 +38,13 @@ class Plan(TimeStampedModel):
     class Meta:
         ordering = ['-created_at']
 
-class TrackArtist(TimeStampedModel):
+class FollowArtist(TimeStampedModel):
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_track_artists') #Without related_name default is trackartist_set
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_follow_artists') #Without related_name default is followartist_set
     artist = models.ForeignKey(artist_models.Artists, on_delete=models.CASCADE)
-    status = models.CharField(max_length=64)
+    source = models.CharField(max_length=64, null=True)
+    classification = models.CharField(max_length=64, null=True)
+    follow = models.IntegerField(null=True)
 
     class Meta:
         ordering = ['-created_at']
