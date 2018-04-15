@@ -7,8 +7,6 @@ urlpatterns = [
     path("", view=views.UserMain.as_view(), name='user'),
     path("all/", view = views.ListAllUsers.as_view(), name = 'all_users'),
     path("events/", view = views.UserEvents.as_view(), name = 'user_events'),
-    url(regex = r"^plans/$", view = views.ListAllPlans.as_view(), name = 'all_plans'),
-    url(regex = r"^follow_artists/$", view = views.ListAllFollowArtists.as_view(), name = 'all_follow_artists'),
     url(regex=r"^$", view=views.UserListView.as_view(), name="list"),
     url(regex=r"^~redirect/$", view=views.UserRedirectView.as_view(), name="redirect"),
     url(regex=r"^~update/$", view=views.UserUpdateView.as_view(), name="update"),

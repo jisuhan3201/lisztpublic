@@ -44,7 +44,6 @@ class PlanAdmin(admin.ModelAdmin):
     list_display = (
         "user_id",
         "event_id",
-        "status",
         "created_at",
         "updated_at",
     )

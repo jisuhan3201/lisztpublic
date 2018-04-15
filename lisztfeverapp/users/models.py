@@ -33,7 +33,6 @@ class Plan(TimeStampedModel):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_plans') #Without related_name default is plan_set
     event = models.ForeignKey(event_models.Events, on_delete=models.PROTECT)
-    status = models.CharField(max_length=64)
 
     class Meta:
         ordering = ['-created_at']

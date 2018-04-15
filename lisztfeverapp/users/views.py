@@ -84,21 +84,3 @@ class UserEvents(APIView):
         serializer = event_serializers.EventSerializer(user_events, many=True)
 
         return Response(data=serializer.data)
-
-class ListAllPlans(APIView):
-
-    def get(self, request, format=None):
-
-        all_plans = models.Plan.objects.all()
-        serializer = serializers.PlanSerializer(all_plans, many=True)
-
-        return Response(data=serializer.data)
-
-class ListAllFollowArtists(APIView):
-
-    def get(self, request, format=None):
-
-        all_follow_artists = models.FollowArtist.objects.all()
-        serializer = serializers.FollowArtistSerializer(all_follow_artists, many=True)
-
-        return Response(data=serializer.data)

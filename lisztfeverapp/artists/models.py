@@ -11,7 +11,7 @@ class Artists(models.Model):
     externalurl = models.CharField(db_column='externalUrl', max_length=1024, blank=True, null=True)  # Field name made lowercase.
     updatedat = models.DateTimeField(db_column='updatedAt', blank=True, null=True)  # Field name made lowercase.
     imageurl = models.CharField(db_column='imageUrl', max_length=255, blank=True, null=True)  # Field name made lowercase.
-    artist_events = models.ManyToManyField(event_models.Events, through='ArtistEvents')
+    artist_events = models.ManyToManyField(event_models.Events, through='ArtistEvent')
 
     class Meta:
         db_table = 'artists'
@@ -24,7 +24,7 @@ class TimeStampedModel(models.Model):
     class Meta:
         abstract = True
 
-class ArtistEvents(TimeStampedModel):
+class ArtistEvent(TimeStampedModel):
 
     artist = models.ForeignKey(Artists, db_column='artistId', on_delete=models.CASCADE)
     event = models.ForeignKey(event_models.Events, db_column='eventId', on_delete=models.CASCADE)

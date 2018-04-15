@@ -18,6 +18,7 @@ urlpatterns = [
     # User management
     path('user/', include("lisztfeverapp.users.urls")),
     path('artist/', include("lisztfeverapp.artists.urls")),
+    path('event/', include("lisztfeverapp.events.urls")),
     url(r"^accounts/", include("allauth.urls")),
     # Your stuff: custom urls includes go here
 ] + static(

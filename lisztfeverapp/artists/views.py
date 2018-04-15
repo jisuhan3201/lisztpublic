@@ -8,7 +8,7 @@ from lisztfeverapp.users import models as user_models
 
 class FollowArtist(APIView):
 
-    def get(self, request, artist_id, format=None):
+    def post(self, request, artist_id, format=None):
 
         user = request.user
 
