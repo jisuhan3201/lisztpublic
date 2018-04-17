@@ -8,4 +8,5 @@ urlpatterns = [
     path("users/", view = views.ListAllUser.as_view(), name = 'all_users'),
     path("events/", view = views.UserEvent.as_view(), name = 'user_events'),
     path("settings/", view = views.UserSetting.as_view(), name = 'user_events'),
+    path('login/facebook/', view=views.FacebookLogin.as_view(), name='fb_login'),
 ]

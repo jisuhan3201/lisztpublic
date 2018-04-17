@@ -11,8 +11,9 @@ urlpatterns = [
     # Django Admin, use {% url 'admin:index' %}
     path(settings.ADMIN_URL, admin.site.urls),
     # User management
-    path('api-token-auth/', obtain_jwt_token),
     path('', include("lisztfeverapp.users.urls")),
+    path('rest-auth/', include('rest_auth.urls')),
+    path('rest-auth/registration/', include('rest_auth.registration.urls')),
     path('artist/', include("lisztfeverapp.artists.urls")),
     path('event/', include("lisztfeverapp.events.urls")),
 

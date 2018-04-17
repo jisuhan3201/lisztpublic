@@ -4,6 +4,8 @@ from rest_framework import status
 from .models import User #cookiecutter default
 from . import models, serializers
 from lisztfeverapp.events import serializers as event_serializers
+from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
+from rest_auth.registration.views import SocialLoginView
 
 
 class UserMain(APIView):
@@ -53,3 +55,6 @@ class UserSetting(APIView):
         serializer = serializers.UserSerializer(user, many=True)
 
         return Response(data=serializer.data, status=status.HTTP_200_OK)
+
+class FacebookLogin(SocialLoginView):
+    adapter_class = FacebookOAuth2Adapter
