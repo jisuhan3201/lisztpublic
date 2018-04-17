@@ -11,10 +11,11 @@ class Artists(models.Model):
     externalurl = models.CharField(db_column='externalUrl', max_length=1024, blank=True, null=True)  # Field name made lowercase.
     updatedat = models.DateTimeField(db_column='updatedAt', blank=True, null=True)  # Field name made lowercase.
     imageurl = models.CharField(db_column='imageUrl', max_length=255, blank=True, null=True)  # Field name made lowercase.
-    artist_events = models.ManyToManyField(event_models.Events, through='ArtistEvent')
+    events = models.ManyToManyField(event_models.Event, through='ArtistEvent')
 
     class Meta:
         db_table = 'artists'
+        ordering = ['-popularity']
 
 class TimeStampedModel(models.Model):
 
@@ -27,7 +28,7 @@ class TimeStampedModel(models.Model):
 class ArtistEvent(TimeStampedModel):
 
     artist = models.ForeignKey(Artists, db_column='artistId', on_delete=models.CASCADE)
-    event = models.ForeignKey(event_models.Events, db_column='eventId', on_delete=models.CASCADE)
+    event = models.ForeignKey(event_models.Event, db_column='eventId', on_delete=models.CASCADE)
 
 class AlbumTracks(models.Model):
     albumid = models.CharField(db_column='albumId', primary_key=True, max_length=255)  # Field name made lowercase.

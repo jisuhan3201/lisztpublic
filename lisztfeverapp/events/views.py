@@ -1,9 +1,23 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from . import models
+from . import models, serializers
 from lisztfeverapp.users import models as user_models
 # Create your views here.
+
+class Event(APIView):
+
+    def get(self, request, event_id, format=None):
+
+        try:
+            found_event = models.Event.objects.get(eventid=event_id)
+        except models.Event.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        serializer = serializers.EventSerializer(found_event)
+
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
+
 
 class PlanEvent(APIView):
 
@@ -12,8 +26,8 @@ class PlanEvent(APIView):
         user = request.user
 
         try:
-            found_event = models.Events.objects.get(eventid=event_id)
-        except models.Events.DoesNotExist:
+            found_event = models.Event.objects.get(eventid=event_id)
+        except models.Event.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
         try:
@@ -40,8 +54,8 @@ class UnPlanEvent(APIView):
         user = request.user
 
         try:
-            found_event = models.Events.objects.get(eventid=event_id)
-        except models.Events.DoesNotExist:
+            found_event = models.Event.objects.get(eventid=event_id)
+        except models.Event.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
         try:

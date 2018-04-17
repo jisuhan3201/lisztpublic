@@ -9,7 +9,11 @@ class PlanSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Plan
-        fields = '__all__'
+        fields = (
+            "id",
+            "event",
+            "created_at"
+        )
 
 class FollowArtistSerializer(serializers.ModelSerializer):
 
@@ -17,7 +21,12 @@ class FollowArtistSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.FollowArtist
-        fields = '__all__'
+        fields = (
+            "source",
+            "classification",
+            "artist",
+            "created_at"
+        )
 
 class UserSerializer(serializers.ModelSerializer):
 
@@ -28,11 +37,26 @@ class UserSerializer(serializers.ModelSerializer):
         model = models.User
         fields = (
             'id',
-            'username',
-            'first_name',
-            'last_name',
             'name',
-            'email',
+            "event_count",
+            "following_count",
             'user_plans',
-            'user_follow_artists'
+            'user_follow_artists',
+        )
+
+class ListUserSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.User
+        fields = (
+            "id",
+            "username",
+            "name",
+            "first_name",
+            "last_name",
+            "email",
+            "event_count",
+            "following_count",                        
+            "user_events",
+            "following_artists"
         )

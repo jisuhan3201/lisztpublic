@@ -1,9 +1,41 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from . import models
+from . import models, serializers
 from lisztfeverapp.users import models as user_models
 # Create your views here.
+
+class Artist(APIView):
+
+    def get(self, request, artist_id, format=None):
+
+        try:
+            found_artist = models.Artists.objects.get(artistid=artist_id)
+        except models.Artists.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        serializer = serializers.ArtistAllSerializer(found_artist)
+
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
+
+class SearchArtist(APIView):
+
+    def get(self, request, format=None):
+
+        artist_name = request.query_params.get('artist_name', None)
+        genre = request.query_params.get('genre', None)
+
+        if artist_name is not None:
+
+            artists = models.Artists.objects.filter(artistname__istartswith=artist_name)
+            serializer = serializers.SmallArtistSerializer(artists, many=True)
+
+            return Response(data=serializer.data, status=status.HTTP_200_OK)
+
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
 
 class FollowArtist(APIView):
 

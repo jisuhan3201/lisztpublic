@@ -4,7 +4,8 @@ from . import views
 
 app_name = "users"
 urlpatterns = [
-    path("", view=views.UserMain.as_view(), name='user'),
-    path("all/", view = views.ListAllUsers.as_view(), name = 'all_users'),
-    path("events/", view = views.UserEvents.as_view(), name = 'user_events'),
+    path("", view=views.UserMain.as_view(), name='main'),
+    path("users/", view = views.ListAllUser.as_view(), name = 'all_users'),
+    path("events/", view = views.UserEvent.as_view(), name = 'user_events'),
+    path("settings/", view = views.UserSetting.as_view(), name = 'user_events'),
 ]

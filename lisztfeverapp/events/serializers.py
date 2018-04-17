@@ -1,8 +1,27 @@
 from rest_framework import serializers
 from . import models
 
-class EventSerializer(serializers.ModelSerializer):
+class VenueSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = models.Events
-        fields = '__all__'
+        model = models.Venue
+        fields = "__all__"
+
+
+class EventSerializer(serializers.ModelSerializer):
+
+    venue = VenueSerializer()
+
+    class Meta:
+        model = models.Event
+        fields = (
+            "eventid",
+            "eventname",
+            "eventstartlocaldate",
+            "eventimageurl",
+            "primaryeventurl",
+            "eventstatus",
+            "maxprice",
+            "minprice",
+            "venue"
+        )

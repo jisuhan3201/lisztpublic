@@ -1,9 +1,26 @@
 from django.db import models
-from lisztfeverapp.artists import models as artist_models
 
 
 # Create your models here.
-class Events(models.Model):
+class Venue(models.Model):
+
+    venueid = models.CharField(db_column='venueId', primary_key=True, max_length=255)  # Field name made lowercase.
+    venuename = models.CharField(db_column='venueName', max_length=1024, blank=True, null=True)  # Field name made lowercase.
+    venuecity = models.CharField(db_column='venueCity', max_length=255, blank=True, null=True)  # Field name made lowercase.
+    venuestatecode = models.CharField(db_column='venueStateCode', max_length=50, blank=True, null=True)  # Field name made lowercase.
+    venuecountrycode = models.CharField(db_column='venueCountryCode', max_length=50, blank=True, null=True)  # Field name made lowercase.
+    venuestreet = models.CharField(db_column='venueStreet', max_length=1024, blank=True, null=True)  # Field name made lowercase.
+    venuezipcode = models.CharField(db_column='venueZipCode', max_length=255, blank=True, null=True)  # Field name made lowercase.
+    venuelatitude = models.FloatField(db_column='venueLatitude', blank=True, null=True)  # Field name made lowercase.
+    venuelongitude = models.FloatField(db_column='venueLongitude', blank=True, null=True)  # Field name made lowercase.
+    venueurl = models.CharField(db_column='venueUrl', max_length=1024, blank=True, null=True)  # Field name made lowercase.
+    venuetimezone = models.CharField(db_column='venueTimezone', max_length=255, blank=True, null=True)  # Field name made lowercase.
+    updatedat = models.DateTimeField(db_column='updatedAt', auto_now=True, null=True)
+
+    class Meta:
+        db_table = 'venues'
+
+class Event(models.Model):
     eventid = models.CharField(db_column='eventId', primary_key=True, max_length=255)  # Field name made lowercase.
     eventimageurl = models.CharField(db_column='eventImageUrl', max_length=255, blank=True, null=True)  # Field name made lowercase.
     eventname = models.CharField(db_column='eventName', max_length=255, blank=True, null=True)  # Field name made lowercase.
@@ -18,10 +35,10 @@ class Events(models.Model):
     minprice = models.FloatField(db_column='minPrice', blank=True, null=True)  # Field name made lowercase.
     eventstartlocaltime = models.TimeField(db_column='eventStartLocalTime', blank=True, null=True)  # Field name made lowercase.
     updatedat = models.DateTimeField(db_column='updatedAt', blank=True, null=True)  # Field name made lowercase.
+    venue = models.ForeignKey(Venue, db_column='venueId', on_delete=models.CASCADE, null=True)
 
     class Meta:
         db_table = 'events'
-
 
 class EventArtists(models.Model):
     eventid = models.CharField(db_column='eventId', primary_key=True, max_length=255)  # Field name made lowercase.

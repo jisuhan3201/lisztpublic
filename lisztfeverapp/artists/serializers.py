@@ -4,7 +4,30 @@ from lisztfeverapp.events import serializers as event_serializers
 
 class ArtistSerializer(serializers.ModelSerializer):
 
-    artist_events = event_serializers.EventSerializer(many=True)
+    events = event_serializers.EventSerializer(many=True)
+
+    class Meta:
+        model = models.Artists
+        fields = (
+            "artistid",
+            "artistname",
+            "imageurl",
+            "events",
+        )
+
+class SmallArtistSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Artists
+        fields = (
+            "artistid",
+            "artistname",
+            "imageurl",
+        )
+
+class ArtistAllSerializer(serializers.ModelSerializer):
+
+    events = event_serializers.EventSerializer(many=True)
 
     class Meta:
         model = models.Artists
@@ -16,6 +39,6 @@ class ArtistSerializer(serializers.ModelSerializer):
             "followers",
             "externalurl",
             "imageurl",
-            "artist_events",
-            "updatedat"
+            "updatedat",
+            "events",
         )
