@@ -5,22 +5,19 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 from django.views import defaults as default_views
 from django.urls import include, path  #django 2.0 version url dispatcher
+from rest_framework_jwt.views import obtain_jwt_token
 
 urlpatterns = [
-    # url(r"^$", TemplateView.as_view(template_name="pages/home.html"), name="home"),
-    url(
-        r"^about/$",
-        TemplateView.as_view(template_name="pages/about.html"),
-        name="about",
-    ),
     # Django Admin, use {% url 'admin:index' %}
     path(settings.ADMIN_URL, admin.site.urls),
     # User management
+    path('api-token-auth/', obtain_jwt_token),
     path('', include("lisztfeverapp.users.urls")),
     path('artist/', include("lisztfeverapp.artists.urls")),
     path('event/', include("lisztfeverapp.events.urls")),
-    url(r"^accounts/", include("allauth.urls")),
+
     # Your stuff: custom urls includes go here
+
 ] + static(
     settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
 )
