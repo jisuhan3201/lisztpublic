@@ -6,16 +6,18 @@ from django.views.generic import TemplateView
 from django.views import defaults as default_views
 from django.urls import include, path  #django 2.0 version url dispatcher
 from rest_framework_jwt.views import obtain_jwt_token
+from lisztfeverapp import views
 
 urlpatterns = [
     # Django Admin, use {% url 'admin:index' %}
     path(settings.ADMIN_URL, admin.site.urls),
     # User management
-    path('', include("lisztfeverapp.users.urls")),
+    path('user/', include("lisztfeverapp.users.urls")),
     path('rest-auth/', include('rest_auth.urls')),
     path('rest-auth/registration/', include('rest_auth.registration.urls')),
     path('artist/', include("lisztfeverapp.artists.urls")),
     path('event/', include("lisztfeverapp.events.urls")),
+    url(r'^', views.ReactAppView.as_view())
 
     # Your stuff: custom urls includes go here
 
