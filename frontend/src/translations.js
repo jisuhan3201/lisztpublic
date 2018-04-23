@@ -1,5 +1,29 @@
 export const translations = {
-  ko: {
-    "Login in": "로그인"
-  }
+  'ko': {
+    'Cool app': '',
+    'Logo': '로고',
+    'Have an account?': '',
+    'Log in': '로그인',
+    'Dont have account?': '',
+    'Sign up': '회원가입',
+    'Get the app': '',
+    'Download it on the Apple Appstore': '',
+    'Username': '',
+    'Password': '',
+    'or': '',
+    'Log in with Facebook': '',
+    'Forgot password?': '',
+    'Sign up to see photos and videos from your friends.': '',
+    'Email': '',
+    'Full Name': '',
+    'By signing up, you agree to our': '',
+    'Terms & Privacy Policy': '',
+    'About Us': '',
+    'Privacy': '',
+    'Terms': '',
+    'Language': '',
+    'Contacts': '',
+  },
+  'options': {
+  },
 }

@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import styles from "./styles.scss";
 
 const Footer = (props, context) => (
@@ -6,11 +7,11 @@ const Footer = (props, context) => (
     <div className={styles.column}>
       <nav className={styles.nav}>
         <ul className={styles.list}>
-          <li className={styles.listItem}>About Us</li>
-          <li className={styles.listItem}>Privacy</li>
-          <li className={styles.listItem}>Terms</li>
-          <li className={styles.listItem}>Language</li>
-          <li className={styles.listItem}>Contacts</li>
+          <li className={styles.listItem}>{context.t("About Us")}</li>
+          <li className={styles.listItem}>{context.t("Privacy")}</li>
+          <li className={styles.listItem}>{context.t("Terms")}</li>
+          <li className={styles.listItem}>{context.t("Language")}</li>
+          <li className={styles.listItem}>{context.t("Contacts")}</li>
         </ul>
       </nav>
     </div>
@@ -19,5 +20,9 @@ const Footer = (props, context) => (
     </div>
   </footer>
 )
+
+Footer.contextTypes = {
+  t: PropTypes.func.isRequired
+};
 
 export default Footer;
