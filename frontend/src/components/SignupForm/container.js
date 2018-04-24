@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import SignupForm from "./presenter";
 
 class Container extends Component {
@@ -6,10 +7,14 @@ class Container extends Component {
     username: "",
     password: "",
     email: "",
-    fullname: ""
+    name: ""
   }
+  static propTypes = {
+    facebookLogin: PropTypes.func.isRequired,
+    createAccount: PropTypes.func.isRequired
+  };
   render(){
-    const { username, password, email, fullname } = this.state;
+    const { username, password, email, name } = this.state;
     return (
       <SignupForm
         handleInputChange={this._handleInputChange}
@@ -18,7 +23,7 @@ class Container extends Component {
         usernameValue={username}
         passwordValue={password}
         emailValue={email}
-        fullnameValue={fullname}
+        nameValue={name}
       />
     );
   }
@@ -29,11 +34,15 @@ class Container extends Component {
     });
   };
   _handleSubmit = event => {
+    const { username, password, email, name } = this.state;
+    const { createAccount } = this.props;
     event.preventDefault();
+    createAccount(username, password, email, name);
     //redux action will be here
   }
   _handleFacebookLogin = response => {
-    console.log(response)
+    const { facebookLogin } = this.props;
+    facebookLogin(response.accessToken);
   }
 }
 

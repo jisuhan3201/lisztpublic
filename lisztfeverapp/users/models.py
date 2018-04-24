@@ -7,9 +7,16 @@ from lisztfeverapp.events import models as event_models
 
 class User(AbstractUser):
 
-    # First Name and Last Name do not cover name patterns
-    # around the globe.
+    """ User Model """
+
+    GENDER_CHOICES = (
+        ('male', 'Male'),
+        ('female', 'Female'),
+        ('not-specified', 'Not specified')
+    )
     name = models.CharField(_("Name of User"), blank=True, max_length=255)
+    profile_image = models.ImageField(null=True)
+    gender = models.CharField(max_length=80, choices=GENDER_CHOICES, null=True)
     user_events = models.ManyToManyField(event_models.Event, through='Plan', related_name="user_events")
     following_artists = models.ManyToManyField(artist_models.Artists, through='followArtist', related_name="follow_artists")
 
