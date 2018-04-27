@@ -5,6 +5,7 @@ from . import models
 @admin.register(models.ArtistEvent)
 class ArtistEventAdmin(admin.ModelAdmin):
 
+    search_fields = ["artist"]
     list_display = (
         "artist",
         "event",

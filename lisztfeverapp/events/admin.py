@@ -5,6 +5,7 @@ from . import models
 @admin.register(models.Event)
 class EventAdmin(admin.ModelAdmin):
 
+    search_fields = ["eventid"]
     list_display = (
         "eventid",
         "eventimageurl",

@@ -1,10 +1,11 @@
 from rest_framework import serializers
 from . import models
-from lisztfeverapp.events import serializers as event_serializers
+# from lisztfeverapp.events import serializers as event_serializers
+# If above line activated, events serializer cannot get artist serializer
 
 class ArtistSerializer(serializers.ModelSerializer):
 
-    events = event_serializers.EventSerializer(many=True)
+    # events = event_serializers.EventSerializer(many=True)
 
     class Meta:
         model = models.Artists
@@ -12,7 +13,7 @@ class ArtistSerializer(serializers.ModelSerializer):
             "artistid",
             "artistname",
             "imageurl",
-            "events",
+            # "events",
         )
 
 class SmallArtistSerializer(serializers.ModelSerializer):
@@ -27,7 +28,7 @@ class SmallArtistSerializer(serializers.ModelSerializer):
 
 class ArtistAllSerializer(serializers.ModelSerializer):
 
-    events = event_serializers.EventSerializer(many=True)
+    # events = event_serializers.EventSerializer(many=True)
 
     class Meta:
         model = models.Artists
@@ -40,5 +41,5 @@ class ArtistAllSerializer(serializers.ModelSerializer):
             "externalurl",
             "imageurl",
             "updatedat",
-            "events",
+            # "events",
         )

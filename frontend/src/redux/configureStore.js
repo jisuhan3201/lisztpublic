@@ -8,7 +8,7 @@ import createHistory from "history/createBrowserHistory";
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { i18nState } from 'redux-i18n';
 import user from "redux/modules/user";
-import Reactotron from "ReactotronConfig";
+import events from "redux/modules/events";
 
 const env = process.env.NODE_ENV
 const history = createHistory()
@@ -21,6 +21,7 @@ if (env === "development"){
 
 const reducer = combineReducers({
   user,
+  events,
   routing: routerReducer,
   i18nState
 });
@@ -29,8 +30,7 @@ let store;
 
 if (env === "development"){
   store = initialState =>
-    Reactotron.createStore(reducer,
-      composeWithDevTools(applyMiddleware(...middlewares)));
+    createStore(reducer, composeWithDevTools(applyMiddleware(...middlewares)));
 } else {
   store = initialState =>
     createStore(reducer, applyMiddleware(...middlewares));

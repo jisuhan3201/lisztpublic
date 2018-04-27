@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.humanize.templatetags.humanize import naturaltime
 
 
 # Create your models here.
@@ -39,6 +40,7 @@ class Event(models.Model):
 
     class Meta:
         db_table = 'events'
+
 
 class EventArtists(models.Model):
     eventid = models.CharField(db_column='eventId', primary_key=True, max_length=255)  # Field name made lowercase.

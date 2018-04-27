@@ -37,12 +37,12 @@ class UserEvent(APIView):
         user_events = []
         for artist in user_follow_artists:
 
-            events = artist.artist.artist_events.all()
+            events = artist.artist.events.all()
             for event in events:
                 if event != False:
                     user_events.append(event)
 
-        serializer = event_serializers.EventSerializer(user_events, many=True)
+        serializer = event_serializers.EventSerializer(user_events, many=True, context={'request': request})
 
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 

@@ -41,7 +41,7 @@ class UserSerializer(serializers.ModelSerializer):
         fields = (
             'id',
             'name',
-            'username'
+            'username',
             'profile_image',
             "event_count",
             "following_count",
