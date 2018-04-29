@@ -17,11 +17,11 @@ const Navigation = (props, context) => (
       </div>
       <div className={styles.column}>
         <div className={styles.navIcon}>
-          <Link to="/explore">
+          <Link to="/plan">
             <Ionicon icon="ios-compass-outline" fontSize="28px" color="#e83862"/>
           </Link>
         </div>
-        <div className={styles.navIcon}>
+        <div className={styles.navIcon} onClick={props.openPlans}>
           <Ionicon icon="ios-heart-outline" fontSize="28px" color="#e83862"/>
         </div>
         <div className={styles.navIcon}>

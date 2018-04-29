@@ -29,7 +29,7 @@ class EventSerializer(serializers.ModelSerializer):
             "minprice",
             "venue",
             "artists",
-            "is_planned"
+            "is_planned",
         )
 
     def get_is_planned(self, obj):

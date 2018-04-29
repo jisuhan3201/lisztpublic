@@ -1,0 +1,17 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 16px;
+  width: 100%;
+  box-sizing: border-box;
+  border-bottom: 1px solid $light-grey;
+  .column {
+    display: flex;
+    align-items: center;
+    .row {
+      display: flex;
+      flex-direction: row;
+    }
+  }
+}

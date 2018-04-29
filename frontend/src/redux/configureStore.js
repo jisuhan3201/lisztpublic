@@ -10,8 +10,10 @@ import { i18nState } from 'redux-i18n';
 import user from "redux/modules/user";
 import events from "redux/modules/events";
 
-const env = process.env.NODE_ENV
-const history = createHistory()
+const env = process.env.NODE_ENV;
+
+const history = createHistory();
+
 const middlewares = [thunk, routerMiddleware(history)];
 
 if (env === "development"){

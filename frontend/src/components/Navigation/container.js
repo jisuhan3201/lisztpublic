@@ -3,8 +3,7 @@ import Navigation from "./presenter";
 
 class Container extends Component {
   render(){
-    return <Navigation />
+    return <Navigation />;
   }
 }
-
 export default Container;

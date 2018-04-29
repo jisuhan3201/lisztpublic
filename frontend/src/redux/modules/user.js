@@ -16,6 +16,7 @@ function logout() {
     type: LOGOUT
   }
 }
+
 //API actions
 function facebookLogin(access_token){
   return function(dispatch){
@@ -82,6 +83,7 @@ function createAccount(username, password, email, name){
     .catch(err => console.log(err));
   }
 }
+
 // initial state
 
 const initialState = {
@@ -120,6 +122,7 @@ function applyLogout(state, action) {
     isLoggedIn: false
   };
 }
+
 // exports
 const actionCreators = {
   facebookLogin,

@@ -5,6 +5,9 @@ import { actionCreators as userActions } from "redux/modules/user";
 const SET_FEED = "SET_FEED";
 const PLAN_EVENT = "PLAN_EVENT";
 const UNPLAN_EVENT = "UNPLAN_EVENT";
+const SET_PLAN_LIST = "SET_PLAN_LIST";
+const PLAN_LIST = "PLAN_LIST";
+const UNPLAN_LIST = "UNPLAN_LIST";
 
 // action creators
 function setFeed(feed){
@@ -24,6 +27,26 @@ function doPlanEvent(eventId){
 function doUnplanEvent(eventId){
   return {
     type: UNPLAN_EVENT,
+    eventId
+  }
+}
+
+function setPlanList(planList){
+  return {
+    type: SET_PLAN_LIST,
+    planList
+  }
+}
+function doPlanList(eventId){
+  return {
+    type: PLAN_LIST,
+    eventId
+  }
+}
+
+function doUnplanList(eventId){
+  return {
+    type: UNPLAN_LIST,
     eventId
   }
 }
@@ -89,6 +112,67 @@ function unplanEvent(eventId){
   };
 }
 
+function getEventPlans(){
+  return (dispatch, getState) => {
+    const { user: { token } } = getState();
+    fetch("/user/plans/", {
+      headers: {
+        Authorization: `JWT ${token}`
+      }
+    })
+      .then(response => {
+        if(response.status === 401) {
+          dispatch(userActions.logout());
+        }
+        return response.json();
+      })
+      .then(json => {
+        dispatch(setPlanList(json));
+      });
+  };
+}
+
+function planList(eventId){
+  return (dispatch, getState) => {
+    dispatch(doPlanList(eventId));
+    const { user: {token} } = getState()
+    fetch(`/event/${eventId}/plan/`, {
+      method: "POST",
+      headers: {
+        Authorization: `JWT ${token}`
+      }
+    })
+    .then(response => {
+      if(response.status === 401){
+        dispatch(userActions.logout());
+      } else if (!response.ok){
+        dispatch(doUnplanList(eventId));
+      }
+    });
+  };
+}
+
+function unplanList(eventId){
+  return (dispatch, getState) => {
+    dispatch(doUnplanList(eventId));
+    const { user: {token} } = getState()
+    fetch(`/event/${eventId}/unplan/`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `JWT ${token}`
+      }
+    })
+    .then(response => {
+      if(response.status === 401){
+        dispatch(userActions.logout());
+      } else if (!response.ok){
+        dispatch(doPlanList(eventId));
+      }
+    });
+  };
+}
+
+
 // initial state
 const initialState = {};
 
@@ -101,6 +185,12 @@ function reducer(state = initialState, action){
       return applyPlanEvent(state, action);
     case UNPLAN_EVENT:
       return applyUnplanEvent(state, action);
+    case SET_PLAN_LIST:
+      return applySetPlanList(state, action);
+    case PLAN_LIST:
+      return applyPlanList(state, action);
+    case UNPLAN_LIST:
+      return applyUnplanList(state, action);
     default:
       return state;
   }
@@ -137,11 +227,47 @@ function applyUnplanEvent(state, action){
   });
   return {...state, feed: updatedFeed};
 }
+
+function applySetPlanList(state, action){
+  const { planList } = action;
+  return {
+    ...state,
+    planList
+  };
+}
+
+function applyPlanList(state, action){
+  const { eventId } = action;
+  const { planList } = state;
+  const updatedPlanList = planList.map(plan => {
+    if(plan.eventid === eventId) {
+      return {...plan, is_planned: true}
+    }
+    return plan
+  });
+  return {...state, planList: updatedPlanList};
+}
+
+function applyUnplanList(state, action){
+  const { eventId } = action;
+  const { planList } = state;
+  const updatedPlanList = planList.map(plan => {
+    if(plan.eventid === eventId) {
+      return {...plan, is_planned: false}
+    }
+    return plan
+  });
+  return {...state, planList: updatedPlanList};
+}
+
 // exports
 const actionCreators = {
   getFeed,
   planEvent,
-  unplanEvent
+  unplanEvent,
+  getEventPlans,
+  planList,
+  unplanList
 };
 
 export { actionCreators };

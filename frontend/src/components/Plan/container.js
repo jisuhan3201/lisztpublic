@@ -1,19 +1,19 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import Feed from "./presenter";
+import Plan from "./presenter";
 
 class Container extends Component {
   state = {
     loading: true
   };
   static propTypes = {
-    getFeed: PropTypes.func.isRequired,
-    feed: PropTypes.array
+    getEventPlans: PropTypes.func.isRequired,
+    planList: PropTypes.array
   };
-  componentDidMount() {
-    const { getFeed } = this.props;
-    if(!this.props.feed){
-      getFeed();
+  componentDidMount(){
+    const { getEventPlans } = this.props;
+    if(!this.props.planList){
+      getEventPlans();
     } else {
       this.setState({
         loading: false
@@ -26,16 +26,16 @@ class Container extends Component {
     console.log(prevProps, this.props)
   }
 
-  componentWillReceiveProps = (nextProps) => {
-    if (nextProps.feed) {
+  componentWillReceiveProps = nextProps => {
+    if (nextProps.planList) {
       this.setState({
         loading: false
       });
     }
-  }
-  render(){
-    const { feed } = this.props;
-    return <Feed {...this.state} feed={feed} />;
+  };
+  render() {
+    const { planList } = this.props;
+    return <Plan {...this.state} planList={ planList }/>
   }
 }
 

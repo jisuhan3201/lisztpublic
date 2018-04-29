@@ -46,6 +46,16 @@ class UserEvent(APIView):
 
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
+class UserPlan(APIView):
+
+    def get(self, request, format=None):
+
+        user = request.user
+        user_plan = user.user_events.all()
+        serializer = event_serializers.EventSerializer(user_plan, many=True, context={'request': request})
+
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
+
 class UserSetting(APIView):
 
     def get(self, request, format=None): #format=None is json format
